@@ -24,6 +24,13 @@ namespace Movement
 	{
 		// your private fields here
 
+		// Ball movement speed X
+		private float speedX = 600f;
+
+		// Ball movement speed Y
+		private float speedY = 400f; 
+
+
 
 		// constructor + call base constructor
 		public SimpleBall() : base("resources/bigball.png")
@@ -43,7 +50,8 @@ namespace Movement
 		private void Move(float deltaTime)
 		{
 			// TODO implement
-			// Position.X += 200 * deltaTime;
+			Position.X += speedX * deltaTime;
+			Position.Y += speedY * deltaTime;
 		}
 
 		private void BounceEdges()
@@ -51,12 +59,27 @@ namespace Movement
 			float scr_width = Settings.ScreenSize.X;
 			float scr_height = Settings.ScreenSize.Y;
 			float spr_width = TextureSize.X;
-			float spr_heigth = TextureSize.Y;
+			float spr_height = TextureSize.Y;
 
 			// TODO implement...
-			if (Position.X > scr_width)
+			//Ball position X
+			if (Position.X + spr_width / 2 > scr_width)
 			{
-				// ...
+				speedX = speedX * -1;
+			}
+			if (Position.X - spr_width / 2 < 0)
+			{
+				speedX = speedX * -1;
+			}
+
+			//Ball position Y
+			if (Position.Y + spr_height / 2 > scr_height)
+			{
+				speedY = speedY * -1;
+			}
+			if (Position.Y - spr_height / 2 < 0)
+			{
+				speedY = speedY * -1;
 			}
 		}
 
