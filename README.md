@@ -8,7 +8,7 @@ To run the application:
 
 ## Documentation
 
-Youtube playlist: [The coding train](https://www.youtube.com/watch?v=70MQ-FugwbI&list=PLRqwX-V7Uu6ZV4yEcW3uDwOgGXKUUsPOM]). Watch **all** the videos.
+Youtube playlist: [The coding train](https://www.youtube.com/watch?v=70MQ-FugwbI&list=PLRqwX-V7Uu6ZV4yEcW3uDwOgGXKUUsPOM). Watch **all** the videos.
 
 Nature of code book: [Nature of code](https://natureofcode.com/book/). Read **all** chapters and exercises.
 
