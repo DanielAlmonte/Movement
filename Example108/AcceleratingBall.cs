@@ -1,3 +1,4 @@
+using System;
 using System.Numerics; // Vector2
 using Raylib_cs; // Color
 
@@ -23,7 +24,10 @@ namespace Movement
 	class AcceleratingBall : SpriteNode
 	{
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
-		private Vector2 Velocity = new Vector2(400,300);
+		private Vector2 Velocity = new Vector2(0,0);
+		private Vector2 Acceleration = new Vector2(0,0);
+		private float MaxSpeed = 1000;
+		
 
 		// constructor + call base constructor
 		public AcceleratingBall() : base("resources/ball.png")
@@ -35,17 +39,26 @@ namespace Movement
 		// Update is called every frame
 		public override void Update(float deltaTime)
 		{
+			Acceleration = new Vector2(100, 80);
 			Move(deltaTime);
 			WrapEdges();
-		}
 
+
+			if (Velocity.Length() > MaxSpeed)
+			{
+				Velocity = Vector2.Normalize(Velocity);
+				Velocity *= MaxSpeed;
+			}
+			
+
+			Console.WriteLine(Velocity.Length());
+		}
 		// your own private methods
 		private void Move(float deltaTime)
 		{
 			// TODO implement
+			Velocity += Acceleration * deltaTime;
 			Position += Velocity * deltaTime;
-			// accelerate your ball (40, 30) every frame
-			// limit to a maximum speed of 1000 pixels/second
 		}
 
 		private void WrapEdges()
@@ -57,22 +70,22 @@ namespace Movement
 
 			// TODO implement...
 			//Ball position X
-			if (Position.X + spr_width / 2 > scr_width)
+			if (Position.X > scr_width)
 			{
-				Velocity.X = Velocity.X * -1;
+				Position.X = 0;
 			}
-			if (Position.X - spr_width / 2 < 0)
+			else if (Position.X <0)
 			{
-				Velocity.X = Velocity.X * -1;
+				Position.X = scr_width;
 			}
 			//Ball position Y 
-			if (Position.Y + spr_height / 2 > scr_height)
+			if (Position.Y > scr_width)
 			{
-				Velocity.Y = Velocity.Y * -1;
+				Position.Y = 0;
 			}
-			if (Position.Y - spr_height / 2 < 0)
+			else if (Position.Y <0)
 			{
-				Velocity.Y = Velocity.Y * -1;
+				Position.Y = scr_width;
 			}
 				
 		}

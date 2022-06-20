@@ -23,7 +23,7 @@ namespace Movement
 	class MovingBall : SpriteNode
 	{
 		// your private fields here (add Velocity)
-		private Vector2 Velocity = new Vector2(400,300);
+		private Vector2 Velocity = new Vector2(600,400);
 
 		// constructor + call base constructor
 		public MovingBall() : base("resources/dvdlogo.png")
