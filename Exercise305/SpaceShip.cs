@@ -72,13 +72,13 @@ namespace Movement
 				Position.X = scr_width;
 			}
 			//Position Y 
-			if (Position.Y > scr_width)
+			if (Position.Y > scr_height)
 			{
 				Position.Y = 0;
 			}
 			else if (Position.Y <0)
 			{
-				Position.Y = scr_width;
+				Position.Y = scr_height;
 			}
 		}
 
