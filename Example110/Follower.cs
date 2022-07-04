@@ -21,10 +21,10 @@ Methods:
 
 namespace Movement
 {
-	class Follower : SpriteNode
+	class Follower : MoverNode
 	{
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
-
+		private float MaxSpeed = 700;
 
 		// constructor + call base constructor
 		public Follower() : base("resources/ball.png")
@@ -37,34 +37,28 @@ namespace Movement
 		public override void Update(float deltaTime)
 		{
 			Follow(deltaTime);
-			BounceEdges();
+			Move(deltaTime);
+
+			if (Velocity.Length() > MaxSpeed)
+			{
+				Velocity = Vector2.Normalize(Velocity);
+				Velocity *= MaxSpeed;
+			}
+
+			Console.WriteLine(Velocity.Length());
 		}
 
 		// your own private methods
-		private void Follow(float deltaTime)
-		{
-			Vector2 mouse = Raylib.GetMousePosition();
-			// Console.WriteLine(mouse);
-			
-			Position = mouse; // incorrect!!
+		 private void Follow(float deltaTime)
+        {
+            Vector2 mouse = Raylib.GetMousePosition();
 
-			// TODO implement
-			// Position += Velocity * deltaTime;
-		}
+            Vector2 dir = mouse - Position;
 
-		private void BounceEdges()
-		{
-			float scr_width = Settings.ScreenSize.X;
-			float scr_height = Settings.ScreenSize.Y;
-			float spr_width = TextureSize.X;
-			float spr_heigth = TextureSize.Y;
+            Vector2.Normalize(dir);
 
-			// TODO implement...
-			if (Position.X > scr_width)
-			{
-				// ...
-			}
-		}
-
+            Acceleration = dir;
+            Acceleration *= 10;
+        }
 	}
 }

@@ -21,10 +21,10 @@ Methods:
 
 namespace Movement
 {
-	class Pointer : SpriteNode
+	class Pointer : MoverNode
 	{
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
-
+		private float MaxSpeed = 700;
 
 		// constructor + call base constructor
 		public Pointer() : base("resources/spaceship.png")
@@ -37,38 +37,34 @@ namespace Movement
 		public override void Update(float deltaTime)
 		{
 			PointToMouse(deltaTime);
-			BounceEdges();
+			Follow(deltaTime);
+			Move(deltaTime);
+
+			if (Velocity.Length() > MaxSpeed)
+			{
+				Velocity = Vector2.Normalize(Velocity);
+				Velocity *= MaxSpeed;
+			}
+
+			Console.WriteLine(Velocity.Length());
 		}
 
 		// your own private methods
 		private void PointToMouse(float deltaTime)
 		{
-			// Or just implement it in Example 110 Follower
-
 			Vector2 mouse = Raylib.GetMousePosition();
-			// Console.WriteLine(mouse);
+			Vector2 dir = mouse - Position;
+			Console.WriteLine(mouse);
 
-			Position = mouse; // incorrect!!
+			Acceleration = dir;
+			Acceleration *= 10;
 
-			Rotation += deltaTime * Math.PI;  // incorrect!!
-
-			// TODO implement
-			// Position += Velocity * deltaTime;
+			Rotation = (float)Math.Atan2(Velocity.Y, Velocity.X);
 		}
 
-		private void BounceEdges()
+		private void Follow(float deltaTime)
 		{
-			float scr_width = Settings.ScreenSize.X;
-			float scr_height = Settings.ScreenSize.Y;
-			float spr_width = TextureSize.X;
-			float spr_heigth = TextureSize.Y;
 
-			// TODO implement...
-			if (Position.X > scr_width)
-			{
-				// ...
-			}
 		}
-
 	}
 }

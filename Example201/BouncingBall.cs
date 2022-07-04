@@ -20,11 +20,9 @@ Methods:
 
 namespace Movement
 {
-	class BouncingBall : SpriteNode
+	class BouncingBall : MoverNode
 	{
 		// your private fields here (add Velocity, Acceleration, addForce method)
-
-
 		// constructor + call base constructor
 		public BouncingBall() : base("resources/ball.png")
 		{
@@ -43,18 +41,13 @@ namespace Movement
 		private void Fall(float deltaTime)
 		{
 			// TODO implement
-			// Position += Velocity * deltaTime;
+			Position += Acceleration * deltaTime;
 
-			Vector2 wind = new Vector2(150.0f, 0.0f);
-			Vector2 gravity = new Vector2(0.0f, 980.0f);
+			Vector2 wind = new Vector2(1.80f, 0.0f);
+			Vector2 gravity = new Vector2(0.0f, 9.8f);
 
 			AddForce(wind);
 			AddForce(gravity);
-		}
-
-		private void AddForce(Vector2 force)
-		{
-			// TODO implement
 		}
 
 		private void BounceEdges()
@@ -65,9 +58,31 @@ namespace Movement
 			float spr_heigth = TextureSize.Y;
 
 			// TODO implement...
-			if (Position.X > scr_width)
+			
+			//Position X
+			if (Position.X + spr_width / 2 > scr_width)
 			{
-				// ...
+				Position.X = scr_width - spr_width -1;
+				Acceleration.X *= -1;
+			}
+
+			if (Position.X - spr_width / 2 < 0)
+			{
+				Position.X = 0 + spr_width / 2;
+				Acceleration.X *= -1;
+			}
+
+			//Position Y 
+			if (Position.Y + spr_heigth / 2 > scr_height)
+			{
+				Position.Y = scr_height - spr_heigth / 2;
+				Acceleration.Y *= -1;
+			}
+
+			if (Position.Y - spr_heigth / 2 < 0)
+			{
+				Position.Y = 0 + spr_heigth / 2;
+				Acceleration *= -1;
 			}
 		}
 
